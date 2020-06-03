@@ -9,11 +9,11 @@ namespace Alexandria.Logic.Turn
 {
     public interface ITurn
     {
-        IPlayer player { get; set; }
+        IPlayer Player { get; set; }
     }
 
     public class Turn : ITurn
     {
-        public IPlayer player { get; set; }
+        public IPlayer Player { get; set; }
     }
 }

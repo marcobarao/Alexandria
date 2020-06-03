@@ -1,6 +1,11 @@
 ﻿using Alexandria.Logic;
+using Alexandria.Logic.Bucket;
 using Alexandria.Logic.Match;
+using Alexandria.Logic.Model;
+using Alexandria.Logic.Penalty;
+using Alexandria.Logic.Pilot;
 using Alexandria.Logic.Player;
+using Alexandria.Logic.Position;
 using Alexandria.Logic.Tile;
 using Alexandria.Logic.Turn;
 using Alexandria.Screens;
@@ -13,9 +18,16 @@ public class Bindings : NinjectModule
     {
         Bind<Alexandria.Screens.Lobby>().To<Alexandria.Screens.Lobby>();
         Bind<Alexandria.Screens.Board>().To<Alexandria.Screens.Board>();
+        Bind<Alexandria.Screens.Result>().To<Alexandria.Screens.Result>();
 
         Bind<ILobby>().To<Alexandria.Logic.Lobby>();
         Bind<IBoard>().To<Alexandria.Logic.Board>();
+
+        Bind<IPilot>().To<Pilot>();
+
+        Bind<IModelFactory>().To<ModelFactory>();
+        Bind<IPositionFactory>().To<PositionFactory>();
+        Bind<IPenaltyFactory>().To<PenaltyFactory>();
 
         Bind<IMatch>().To<Match>();
         Bind<IMatchFactory>().To<MatchFactory>();
@@ -24,6 +36,11 @@ public class Bindings : NinjectModule
         Bind<IPlayer>().To<Player>();
         Bind<IPlayerFactory>().To<PlayerFactory>();
         Bind<IPlayerService>().To<PlayerService>();
+
+        Bind<Bucket>().To<Bucket>();
+        Bind<IBucketFactory>().To<BucketFactory>();
+        Bind<ITileGroup>().To<TileGroup>();
+        Bind<ITileGroupFactory>().To<TileGroupFactory>();
 
         Bind<ITile>().To<Tile>();
 

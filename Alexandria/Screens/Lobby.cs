@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using Alexandria.Logic;
 using Alexandria.Logic.Match;
@@ -22,21 +24,30 @@ namespace Alexandria.Screens
 
         private void frmLobby_Load(object sender, System.EventArgs e)
         {
+            this.Cursor = Cursors.WaitCursor;
             this.Fetch_Matches();
         }
 
         private void Fetch_Matches()
         {
-            this.LobbyLogic.ListOpenMatches();
-            this.Update_Matches_DataSource();
+            Thread updateUi = new Thread(() =>
+                {
+                    this.LobbyLogic.ListOpenMatches();
+                    this.Update_Matches_DataSource();
+                })
+                { IsBackground = true };
+            updateUi.Start();
         }
 
         private void Update_Matches_DataSource()
         {
             BindingList<IMatch> matches = new BindingList<IMatch>(this.LobbyLogic.Matches);
-            this.lstMatches.DataSource = matches;
-            this.lstMatches.ValueMember = "id";
-            this.lstMatches.DisplayMember = "name";
+
+            this.lstMatches.Invoke((MethodInvoker) delegate
+            {
+                this.lstMatches.DataSource = matches;
+                this.Cursor = Cursors.Arrow;
+            });
         }
 
         private void Clear_Create_Match_Form()
@@ -60,30 +71,44 @@ namespace Alexandria.Screens
             ListBox lstMatches = sender as ListBox;
             IMatch match = (Match)lstMatches.SelectedItem;
 
-            this.LobbyLogic.ListPlayers(match);
-            this.Update_Players_DataSource(match);
+            this.Cursor = Cursors.WaitCursor;
+            this.Fetch_Players(match);
+        }
+
+        private void Fetch_Players(IMatch match)
+        {
+            Thread updateUi = new Thread(() =>
+                {
+                    this.LobbyLogic.ListPlayers(match);
+                    this.Update_Players_DataSource(match);
+                })
+                { IsBackground = true };
+            updateUi.Start();
         }
 
         private void Update_Players_DataSource(IMatch match)
         {
             BindingList<IPlayer> players = new BindingList<IPlayer>(match.players);
-            this.lstPlayers.DataSource = players;
-            this.lstPlayers.ValueMember = "id";
-            this.lstPlayers.DisplayMember = "name";
+
+            this.lstPlayers.Invoke((MethodInvoker) delegate
+            {
+                this.lstPlayers.DataSource = players;
+                this.Cursor = Cursors.Arrow;
+            });
         }
 
         private void btnRefreshMatch_Click(object sender, EventArgs e)
         {
-            this.LobbyLogic.ListOpenMatches();
-            this.Update_Matches_DataSource();
+            this.Cursor = Cursors.WaitCursor;
+            this.Fetch_Matches();
         }
 
         private void btnRefreshPlayers_Click(object sender, EventArgs e)
         {
             IMatch match = (Match)this.lstMatches.SelectedItem;
+            this.Cursor = Cursors.WaitCursor;
 
-            this.LobbyLogic.ListPlayers(match);
-            this.Update_Players_DataSource(match);
+            this.Fetch_Players(match);
         }
 
         private void btnJoin_Click(object sender, EventArgs e)
@@ -94,11 +119,37 @@ namespace Alexandria.Screens
 
             IPlayer player = this.LobbyLogic.JoinMatch(match, name, password);
 
+
+            match.players.Clear();
+
             this.Hide();
+            this.Board.Lobby = this;
             this.Board.Match = match;
             this.Board.Player = player;
             this.Board.Closed += (s, args) => this.Close();
             this.Board.Show();
+        }
+
+        private void lst_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            ListBox listBox = (ListBox) sender;
+            e.DrawBackground();
+            Brush myBrush = new SolidBrush(Color.FromArgb(250, 250, 250));
+
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(new SolidBrush(Color.FromArgb(29, 185, 84)), e.Bounds);
+            }
+
+            else
+            {
+                e.Graphics.FillRectangle(Brushes.Transparent, e.Bounds);
+            }
+
+            e.Graphics.DrawString(listBox.Items[e.Index].ToString(), e.Font, myBrush, e.Bounds,
+                StringFormat.GenericDefault);
+
+            e.DrawFocusRectangle();
         }
     }
 }

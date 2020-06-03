@@ -29,10 +29,13 @@
         private void InitializeComponent()
         {
             this.btnStart = new System.Windows.Forms.Button();
+            this.Score = new Alexandria.Components.Score();
+            this.Turn = new Alexandria.Components.PlayerTurn();
             this.Floor = new Alexandria.Components.Floor();
             this.Model = new Alexandria.Components.Model();
             this.Wall = new Alexandria.Components.Wall();
             this.Header = new Alexandria.Components.Header();
+            this.flpBuckets = new System.Windows.Forms.FlowLayoutPanel();
             this.SuspendLayout();
             // 
             // btnStart
@@ -42,7 +45,7 @@
             this.btnStart.FlatAppearance.BorderSize = 0;
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.Location = new System.Drawing.Point(518, 384);
+            this.btnStart.Location = new System.Drawing.Point(1216, 486);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(128, 54);
             this.btnStart.TabIndex = 3;
@@ -50,10 +53,32 @@
             this.btnStart.UseVisualStyleBackColor = false;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
             // 
+            // Score
+            // 
+            this.Score.BackColor = System.Drawing.Color.Transparent;
+            this.Score.Location = new System.Drawing.Point(1257, 89);
+            this.Score.Margin = new System.Windows.Forms.Padding(0);
+            this.Score.Name = "Score";
+            this.Score.ScorePoints = 99;
+            this.Score.Size = new System.Drawing.Size(87, 28);
+            this.Score.TabIndex = 5;
+            this.Score.Visible = false;
+            // 
+            // Turn
+            // 
+            this.Turn.BackColor = System.Drawing.Color.Transparent;
+            this.Turn.Location = new System.Drawing.Point(707, 89);
+            this.Turn.Margin = new System.Windows.Forms.Padding(0);
+            this.Turn.Name = "Turn";
+            this.Turn.Player = "Player";
+            this.Turn.Size = new System.Drawing.Size(213, 28);
+            this.Turn.TabIndex = 4;
+            this.Turn.Visible = false;
+            // 
             // Floor
             // 
             this.Floor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
-            this.Floor.Location = new System.Drawing.Point(10, 387);
+            this.Floor.Location = new System.Drawing.Point(708, 489);
             this.Floor.Margin = new System.Windows.Forms.Padding(0);
             this.Floor.Name = "Floor";
             this.Floor.Size = new System.Drawing.Size(637, 51);
@@ -64,7 +89,7 @@
             this.Model.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.Model.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Model.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
-            this.Model.Location = new System.Drawing.Point(9, 71);
+            this.Model.Location = new System.Drawing.Point(707, 139);
             this.Model.Margin = new System.Windows.Forms.Padding(0);
             this.Model.Name = "Model";
             this.Model.Size = new System.Drawing.Size(300, 300);
@@ -75,7 +100,7 @@
             this.Wall.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
             this.Wall.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Wall.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
-            this.Wall.Location = new System.Drawing.Point(346, 71);
+            this.Wall.Location = new System.Drawing.Point(1044, 139);
             this.Wall.Margin = new System.Windows.Forms.Padding(0);
             this.Wall.Name = "Wall";
             this.Wall.Size = new System.Drawing.Size(300, 300);
@@ -89,14 +114,24 @@
             this.Header.MaximumSize = new System.Drawing.Size(2640, 40);
             this.Header.MinimumSize = new System.Drawing.Size(454, 40);
             this.Header.Name = "Header";
-            this.Header.Size = new System.Drawing.Size(673, 40);
+            this.Header.Size = new System.Drawing.Size(1376, 40);
             this.Header.TabIndex = 0;
+            // 
+            // flpBuckets
+            // 
+            this.flpBuckets.Location = new System.Drawing.Point(12, 53);
+            this.flpBuckets.Name = "flpBuckets";
+            this.flpBuckets.Size = new System.Drawing.Size(666, 471);
+            this.flpBuckets.TabIndex = 6;
             // 
             // Board
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
-            this.ClientSize = new System.Drawing.Size(672, 459);
+            this.ClientSize = new System.Drawing.Size(1376, 589);
+            this.Controls.Add(this.flpBuckets);
+            this.Controls.Add(this.Score);
+            this.Controls.Add(this.Turn);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.Floor);
             this.Controls.Add(this.Model);
@@ -106,7 +141,7 @@
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Board";
-            this.Text = "Alexandria - Tabuleiro";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.Board_Load);
             this.ResumeLayout(false);
 
@@ -119,5 +154,8 @@
         private Components.Model Model;
         private Components.Floor Floor;
         private System.Windows.Forms.Button btnStart;
+        private Components.PlayerTurn Turn;
+        private Components.Score Score;
+        private System.Windows.Forms.FlowLayoutPanel flpBuckets;
     }
 }

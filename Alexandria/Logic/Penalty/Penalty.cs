@@ -5,17 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Alexandria.Logic.Tile
+namespace Alexandria.Logic.Penalty
 {
-    public interface ITile
+    public interface IPenalty
     {
-        int id { get; set; }
+        Color color { get; set; }
         int penalty { get; set; }
     }
 
-    public class Tile : ITile
+    public class Penalty : IPenalty
     {
-        public int id { get; set; }
+        public Color color { get; set; }
         public int penalty { get; set; }
     }
 }

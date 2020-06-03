@@ -34,12 +34,14 @@
             // lblTile
             // 
             this.lblTile.AutoSize = true;
+            this.lblTile.BackColor = System.Drawing.Color.Transparent;
             this.lblTile.Font = new System.Drawing.Font("Yu Gothic UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTile.Location = new System.Drawing.Point(28, 20);
             this.lblTile.Margin = new System.Windows.Forms.Padding(0);
             this.lblTile.Name = "lblTile";
-            this.lblTile.Size = new System.Drawing.Size(0, 28);
+            this.lblTile.Size = new System.Drawing.Size(23, 28);
             this.lblTile.TabIndex = 0;
+            this.lblTile.Text = "0";
             // 
             // Tile
             // 

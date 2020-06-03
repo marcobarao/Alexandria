@@ -30,5 +30,10 @@ namespace Alexandria.Logic.Match
         public DateTime date { get; set; }
         public MatchStatus status { get; set; }
         public List<IPlayer> players { get; set; }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

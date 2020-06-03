@@ -16,5 +16,10 @@ namespace Alexandria.Logic.Player
         public string name { get; set; }
         public string password { get; set; }
         public int score { get; set; }
+
+        public override string ToString()
+        {
+            return name;
+        }
     }
 }

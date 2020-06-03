@@ -16,13 +16,16 @@ namespace Alexandria.Logic.Turn
         public ITurn Create(string response, List<IPlayer> players)
         {
             Turn turn = null;
-            String data = response.Trim();
-            if (data != String.Empty)
+            response = response.Trim();
+
+            if (response != String.Empty)
             {
-                int id = Convert.ToInt32(response);
+                String[] data = response.Split(',');
+
+                int id = Convert.ToInt32(data[1]);
 
                 turn = new Turn();
-                turn.player = players.Find(iterator => iterator.id == id);
+                turn.Player = players.Find(iterator => iterator.id == id);
             }
 
             return turn;

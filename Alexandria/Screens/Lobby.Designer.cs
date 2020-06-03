@@ -33,8 +33,10 @@ namespace Alexandria.Screens
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lblMatches = new System.Windows.Forms.Label();
             this.lstMatches = new System.Windows.Forms.ListBox();
+            this.iMatchBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlMatches = new System.Windows.Forms.Panel();
             this.lblCreateMatch = new System.Windows.Forms.Label();
             this.lblName = new System.Windows.Forms.Label();
@@ -46,11 +48,14 @@ namespace Alexandria.Screens
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lstPlayers = new System.Windows.Forms.ListBox();
+            this.iPlayerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btnRefreshMatch = new System.Windows.Forms.Button();
             this.btnRefreshPlayers = new System.Windows.Forms.Button();
             this.header = new Alexandria.Components.Header();
+            ((System.ComponentModel.ISupportInitialize)(this.iMatchBindingSource)).BeginInit();
             this.pnlMatches.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.iPlayerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // lblMatches
@@ -67,18 +72,25 @@ namespace Alexandria.Screens
             // 
             this.lstMatches.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.lstMatches.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstMatches.DataSource = this.iMatchBindingSource;
+            this.lstMatches.DisplayMember = "name";
+            this.lstMatches.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstMatches.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstMatches.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
             this.lstMatches.FormattingEnabled = true;
             this.lstMatches.ItemHeight = 20;
-            this.lstMatches.Items.AddRange(new object[] {
-            ""});
             this.lstMatches.Location = new System.Drawing.Point(0, 0);
             this.lstMatches.Margin = new System.Windows.Forms.Padding(0);
             this.lstMatches.Name = "lstMatches";
             this.lstMatches.Size = new System.Drawing.Size(343, 280);
             this.lstMatches.TabIndex = 1;
+            this.lstMatches.ValueMember = "id";
+            this.lstMatches.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_DrawItem);
             this.lstMatches.SelectedIndexChanged += new System.EventHandler(this.lstMatches_SelectedIndexChanged);
+            // 
+            // iMatchBindingSource
+            // 
+            this.iMatchBindingSource.DataSource = typeof(Alexandria.Logic.Match.IMatch);
             // 
             // pnlMatches
             // 
@@ -201,17 +213,24 @@ namespace Alexandria.Screens
             // 
             this.lstPlayers.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(33)))), ((int)(((byte)(33)))));
             this.lstPlayers.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstPlayers.DataSource = this.iPlayerBindingSource;
+            this.lstPlayers.DisplayMember = "name";
+            this.lstPlayers.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.lstPlayers.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstPlayers.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
             this.lstPlayers.FormattingEnabled = true;
             this.lstPlayers.ItemHeight = 20;
-            this.lstPlayers.Items.AddRange(new object[] {
-            ""});
             this.lstPlayers.Location = new System.Drawing.Point(0, 0);
             this.lstPlayers.Margin = new System.Windows.Forms.Padding(0);
             this.lstPlayers.Name = "lstPlayers";
             this.lstPlayers.Size = new System.Drawing.Size(343, 280);
             this.lstPlayers.TabIndex = 1;
+            this.lstPlayers.ValueMember = "id";
+            this.lstPlayers.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.lst_DrawItem);
+            // 
+            // iPlayerBindingSource
+            // 
+            this.iPlayerBindingSource.DataSource = typeof(Alexandria.Logic.Player.IPlayer);
             // 
             // btnRefreshMatch
             // 
@@ -273,10 +292,13 @@ namespace Alexandria.Screens
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(179)))), ((int)(((byte)(179)))), ((int)(((byte)(179)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Lobby";
-            this.Text = "Alexandria - LobbyLogic";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Alexandria - Lobby";
             this.Load += new System.EventHandler(this.frmLobby_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.iMatchBindingSource)).EndInit();
             this.pnlMatches.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.iPlayerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,7 +308,6 @@ namespace Alexandria.Screens
 
         private Header header;
         private System.Windows.Forms.Label lblMatches;
-        private System.Windows.Forms.ListBox lstMatches;
         private System.Windows.Forms.Panel pnlMatches;
         private Label lblCreateMatch;
         private Label lblName;
@@ -298,8 +319,11 @@ namespace Alexandria.Screens
         private Label label1;
         private Panel panel1;
         private ListBox lstPlayers;
-        private Button btnRefreshMatch;
         private Button btnRefreshPlayers;
+        private ListBox lstMatches;
+        private BindingSource iMatchBindingSource;
+        private BindingSource iPlayerBindingSource;
+        private Button btnRefreshMatch;
     }
 }
 
