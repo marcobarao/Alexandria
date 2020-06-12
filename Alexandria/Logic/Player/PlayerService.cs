@@ -30,6 +30,7 @@ namespace Alexandria.Logic.Player
 
         public string ReadCenter(IPlayer player)
         {
+            
             String response = Jogo.LerCentro(player.id, player.password);
             return response;
         }

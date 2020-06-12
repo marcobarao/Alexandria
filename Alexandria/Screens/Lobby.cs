@@ -116,11 +116,12 @@ namespace Alexandria.Screens
             IMatch match = (Match)this.lstMatches.SelectedItem;
             String name = this.txtName.Text;
             String password = this.txtPassword.Text;
-
+            
             IPlayer player = this.LobbyLogic.JoinMatch(match, name, password);
 
 
             match.players.Clear();
+            this.Clear_Create_Match_Form();
 
             this.Hide();
             this.Board.Lobby = this;

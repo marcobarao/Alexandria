@@ -24,15 +24,15 @@ namespace Alexandria.Screens
 
         public Board(IBoard board, Result result)
         {
-            this.Result = result;
             this.BoardLogic = board;
+            this.Result = result;
             InitializeComponent();
         }
 
         private void Tick_Timer(object timerState)
         {
             if (!this.isRunning) return;
-            this.BoardLogic.ListPlayers(this.Match);
+            if (this.btnStart.Visible) this.BoardLogic.ListPlayers(this.Match);
             this.BoardLogic.CheckTurn(Match, Player);
 
             if (this.BoardLogic.Finished)
@@ -46,12 +46,6 @@ namespace Alexandria.Screens
             this.btnStart.Invoke((MethodInvoker)delegate
             {
                 this.btnStart.Visible = false;
-            });
-
-            this.Score.Invoke((MethodInvoker) delegate
-            {
-                this.Score.ScorePoints = this.Player.score;
-                this.Score.Visible = true;
             });
 
             this.Turn.Invoke((MethodInvoker)delegate
@@ -76,6 +70,8 @@ namespace Alexandria.Screens
             Thread updateUi = new Thread(() =>
             {
                 this.BoardLogic.ReadBoard(this.Match, this.Player, this.Player);
+                this.BoardLogic.ListPlayers(this.Match);
+                
                 var model = this.BoardLogic.Model;
                 var wall = this.BoardLogic.Wall;
                 var floor = this.BoardLogic.Floor;
@@ -112,26 +108,33 @@ namespace Alexandria.Screens
                 });
 
 
-                this.Wall.Clear();
+                this.Model.Clear();
+                this.Floor.Clear();
+
                 foreach (var position in wall)
                 {
                     this.Wall.PaintTile(position.Y, position.X);
                 }
 
-                this.Model.Clear();
                 foreach (var kv in model)
                 {
                     var line = kv.Value;
                     this.Model.PaintTiles(line.color, line.line, line.quantity);
                 }
 
-                this.Floor.Clear();
                 foreach (var penalty in floor)
                 {
                     this.Floor.AddTile(penalty.color, penalty.penalty);
                 }
 
-                this.Score.ScorePoints = this.Player.score;
+                int score = this.Match.players.Find(player => player.id == this.Player.id).score;
+
+                this.Player.score = score;
+                this.Score.Invoke((MethodInvoker)delegate
+                {
+                    this.Score.ScorePoints = this.Player.score;
+                    this.Score.Visible = true;
+                });
 
             }) { IsBackground = true};
             updateUi.Start();
@@ -152,7 +155,7 @@ namespace Alexandria.Screens
 
         private void Board_Load(object sender, EventArgs e)
         {
-            this.Timer = new Timer(new TimerCallback(this.Tick_Timer), null, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(3));
+            this.Timer = new Timer(new TimerCallback(this.Tick_Timer), null, TimeSpan.FromSeconds(10), TimeSpan.FromSeconds(10));
 
             this.isRunning = true;
         }
@@ -160,6 +163,7 @@ namespace Alexandria.Screens
         private void FinishMatch()
         {
             this.isRunning = false;
+            this.Timer.Dispose();
             this.Timer = null;
             this.BoardLogic.ListPlayers(this.Match);
 

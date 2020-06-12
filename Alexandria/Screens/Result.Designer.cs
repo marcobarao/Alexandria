@@ -36,9 +36,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnLobby = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.lblPlayerWinner = new System.Windows.Forms.Label();
             this.dgvPlayers = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.scoreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.iPlayerBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -58,7 +58,7 @@
             this.btnLobby.Name = "btnLobby";
             this.btnLobby.Size = new System.Drawing.Size(204, 58);
             this.btnLobby.TabIndex = 4;
-            this.btnLobby.Text = "Voltar ao lobby";
+            this.btnLobby.Text = "Sair";
             this.btnLobby.UseVisualStyleBackColor = false;
             this.btnLobby.Click += new System.EventHandler(this.btnLobby_Click);
             // 
@@ -72,6 +72,19 @@
             this.panel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.panel1.Size = new System.Drawing.Size(462, 121);
             this.panel1.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
+            this.label1.Location = new System.Drawing.Point(0, 50);
+            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 64, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(462, 50);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Venceu a partida";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblPlayerWinner
             // 
@@ -161,19 +174,6 @@
             this.dgvPlayers.ScrollBars = System.Windows.Forms.ScrollBars.None;
             this.dgvPlayers.Size = new System.Drawing.Size(396, 162);
             this.dgvPlayers.TabIndex = 3;
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Yu Gothic UI Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(250)))), ((int)(((byte)(250)))));
-            this.label1.Location = new System.Drawing.Point(0, 50);
-            this.label1.Margin = new System.Windows.Forms.Padding(3, 0, 64, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(462, 50);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Venceu a partida";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nameDataGridViewTextBoxColumn
             // 

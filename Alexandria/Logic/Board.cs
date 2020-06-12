@@ -90,6 +90,7 @@ namespace Alexandria.Logic
         public void CheckTurn(IMatch match, IPlayer player)
         {
             String response = TurnService.CheckTurn(player);
+
             if (response.StartsWith("E"))
             {
                 this.Finished = true;

@@ -27,7 +27,6 @@ namespace Alexandria.Logic.Handler
                 Helper.ColorId.TryGetValue(model.color, out var id);
 
                 pilot.TileId = id;
-
             }
             else
             {

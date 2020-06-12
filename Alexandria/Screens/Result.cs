@@ -24,8 +24,7 @@ namespace Alexandria.Screens
 
         private void btnLobby_Click(object sender, System.EventArgs e)
         {
-            this.Hide();
-            this.Lobby.Show();
+            this.Close();
         }
     }
 }
